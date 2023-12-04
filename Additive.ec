@@ -35,19 +35,22 @@ module AdditiveSecretShare: Protocol = {
 
 }.
 
-module O = {
-  proc fst(shares : Share * Share) : Share = {
-      var share1, share2;
-      (share1, share2) <- shares;
-      return share1;
-  }
-}.
+(* How do we get the first element? Like this: *)
+lemma test_fst : fst (3, 2) = 3.
+proof.
+trivial.
+qed.
 
+(* Maybe try a simplier Probability example before proceeding?*)
+(*lemma test_pr : Pr[] *)
 
 lemma additive_secret_share2 (secret1 : Secret) (secret2 : Secret) (a: Share) : Pr[fst(AdditiveSecretShare.share(secret1)) = a] = Pr[fst(AdditiveSecretShare.share(secret2)) = a].
 
-lemma G1_G2_true &m :
-Pr[G1.f() @ &m : res] = Pr[G2.f() @ &m : res].
+(* Useful to reference: *)
 
+(* Maybe we need this format?*)
+(*&m is memory*)
+(*res is result*)
+(*So this states given some memory &m G1.f() and G2.f() return true at about the same rate*)
 lemma G1_G2_true &m :
 Pr[G1.f() @ &m : res] = Pr[G2.f() @ &m : res].
