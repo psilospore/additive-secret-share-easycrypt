@@ -58,9 +58,12 @@ qed.
 (* This works but maybe is not the best way*)
 (* Given two secrets and a share. The probability the first shares of each match a given share is equal. *)
 lemma additive_secret_share2 &m (secret1 : Secret) (secret2 : Secret) (a: Share) :
-    Pr [ AdditiveSecretShare.fst_share_is_value(secret1, a) @ &m : res ] =
-    Pr [ AdditiveSecretShare.fst_share_is_value(secret2, a) @ &m : res ].
+    Pr [ AdditiveSecretShare.share(secret1) @ &m : fst res = a ] =
+    Pr [ AdditiveSecretShare.share(secret2) @ &m : fst res = a ].
 
+(* I think this doesn't work for us*)
+lemma additive_secret_share4 &m (secret1 : Secret) (secret2 : Secret) (a: Share) :
+    equiv [ AdditiveSecretShare.share ~ AdditiveSecretShare.share : ={A} ==> res{1} = res{2} ].
 
 
 
