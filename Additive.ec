@@ -23,6 +23,19 @@ module AdditiveSecretShare: Protocol = {
     return (share1, share2);
   }
 
+  (* I didn't know how to get the first share in the lemma so just made this*)
+  proc fst_share(secret : Secret): Share = {
+    var share1, share2;
+    (share1, share2) <@ share(secret);
+    return share1;
+  }
+
+  proc fst_share_is_value(secret : Secret, expected_share : Share): bool = {
+    var share1, share2;
+    (share1, share2) <@ share(secret);
+    return (share1 = expected_share);
+  }
+
   proc reconstruct(shares : Share * Share): Secret = {
     var secret;
     var share1, share2;
@@ -41,10 +54,15 @@ proof.
 trivial.
 qed.
 
-(* Maybe try a simplier Probability example before proceeding?*)
-(*lemma test_pr : Pr[] *)
 
-lemma additive_secret_share2 (secret1 : Secret) (secret2 : Secret) (a: Share) : Pr[fst(AdditiveSecretShare.share(secret1)) = a] = Pr[fst(AdditiveSecretShare.share(secret2)) = a].
+(* This works but maybe is not the best way*)
+(* Given two secrets and a share. The probability the first shares of each match a given share is equal. *)
+lemma additive_secret_share2 &m (secret1 : Secret) (secret2 : Secret) (a: Share) :
+    Pr [ AdditiveSecretShare.fst_share_is_value(secret1, a) @ &m : res ] =
+    Pr [ AdditiveSecretShare.fst_share_is_value(secret2, a) @ &m : res ].
+
+
+
 
 (* Useful to reference: *)
 
