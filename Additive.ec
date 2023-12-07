@@ -65,7 +65,7 @@ module type ProtocolN = {
   (*proc reconstruct(shares: shares): Secret*)
 }.
 
-module AdditiveSecretnShare: ProtocolN = {
+module AdditiveSecretNShare: ProtocolN = {
 
   proc share(secret : Secret, n: int): shares = {
     var share1, share2, total;
@@ -86,6 +86,16 @@ module AdditiveSecretnShare: ProtocolN = {
 
 }.
 
+
+(* Stub for n secret sharing *)
+lemma additive_secret_share_n &m (secret1 : Secret) (secret2 : Secret) (n : int) (s: shares) :
+    Pr [ AdditiveSecretNShare.share(secret1, n) @ &m : res = s] =
+    Pr [ AdditiveSecretNShare.share(secret2, n) @ &m : res = s].
+proof.
+admit.
+qed.
+
+(* Random Stuff below*)
 (* How do we get the first element? Like this: *)
 lemma test_fst : fst (3, 2) = 3.
 proof.
