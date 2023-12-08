@@ -48,6 +48,8 @@ lemma additive_secret_share2 &m (secret1 : Secret) (secret2 : Secret) (a: Share)
     Pr [ AdditiveSecret2Share.share(secret1) @ &m : fst res = a ] =
     Pr [ AdditiveSecret2Share.share(secret2) @ &m : fst res = a ].
 proof.
+(* byequiv. *)
+(* elim*. *)
 admit.
 qed.
 
