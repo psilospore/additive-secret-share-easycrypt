@@ -78,21 +78,21 @@ module type ProtocolN = {
 module AdditiveSecretNShare: ProtocolN = {
 
   proc share(secret : Secret, n: int): Share list = {
-    var share1, share2, total;
+    var random_share, final_share, total;
     var shares_l : Share list;
 
     shares_l <- [];
     total <- ofint 0;
 
     while (2 <= n) {
-      share1 <$ FDistr.dt;
+      random_share <$ FDistr.dt;
+      shares_l <- shares_l ++ [random_share];
+      total <- total + random_share;
       if (n = 2) {
-        share2 <- secret - total;
-        shares_l <- shares_l ++ [share2];
+        final_share <- secret - total;
+        shares_l <- shares_l ++ [final_share];
       }
-      else {
-        shares_l <- shares_l ++ [share1];
-      }
+      n <- n - 1;
     }
     return shares_l;
   }
@@ -117,29 +117,5 @@ qed.
 (* How do we get the first element? Like this: *)
 lemma test_fst : fst (3, 2) = 3.
 proof.
-trivial.
-qed.
-
-
-
-(* Useful to reference: *)
-
-(* Maybe we need this format?*)
-(*&m is memory*)
-(*res is result*)
-(*So this states given some memory &m G1.f() and G2.f() return true at about the same rate*)
-
-
-lemma fa_imp_not_ex_not (P : 'a -> bool) :
-  (forall (x : 'a), P x) => ! exists (x : 'a), ! P x.
-proof.
-move => fa_x_P_x.
-case (exists x, ! P x).
-move => ex_x_not_P_x.
-elim ex_x_not_P_x.
-move => x not_P_x.
-have P_x : P x.
-  apply (fa_x_P_x x).
-trivial.
 trivial.
 qed.
