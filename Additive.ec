@@ -59,6 +59,8 @@ lemma additive_secret_share2_snd &m (secret1 : Secret) (secret2 : Secret) (a: Sh
 proof.
 admit.
 qed.
+
+
 (* Now let's extend it to n shares *)
 
 (* A data structure to always ensure that there are two shares *)
@@ -104,7 +106,10 @@ lemma additive_secret_share_n &m (secret1 : Secret) (secret2 : Secret) (n : int)
     Pr [ AdditiveSecretNShare.share(secret2, n) @ &m : res = s].
 proof.
 byequiv.
+proc.
 admit.
+auto.
+auto.
 qed.
 
 (* Random Stuff below*)
