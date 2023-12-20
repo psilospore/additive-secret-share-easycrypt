@@ -1,4 +1,5 @@
-(* Reference https://fm.csl.sri.com/SSFT23 *)
+(* This file is from https://fm.csl.sri.com/SSFT23 *)
+
 
 require Int IntDiv.
 require import Xint.
